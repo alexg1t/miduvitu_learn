@@ -30,7 +30,7 @@ return (
     </header>
     <aside>
       <button className={btnclass} onClick={handleClick}>
-        {text}
+        {text}$
       </button>
     </aside>
   </article>
