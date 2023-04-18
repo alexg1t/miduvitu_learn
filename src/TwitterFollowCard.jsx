@@ -1,42 +1,39 @@
-import { useState } from "react";
+import { useState } from 'react'
 
+export function TwitterFollowCard ({ children, userName, initialIsFollowing }) {
+  const [isFollowing, setIsFollowing] = useState(initialIsFollowing)
 
-export function TwitterFollowCard( { formatUserName, userName,children}) {
-    
+  console.log('[TwitterFollowCard] render with userName: ', userName)
 
-    const [isFollowing,setIsFollowing]=useState(false);
-    const handleClick = () =>{
-      setIsFollowing(!isFollowing);
-    }
+  const text = isFollowing ? 'Siguiendo' : 'Seguir'
+  const buttonClassName = isFollowing
+    ? 'tw-followCard-button is-following'
+    : 'tw-followCard-button'
 
+  const handleClick = () => {
+    setIsFollowing(!isFollowing)
+  }
 
-    const imageSrc =`https://unavatar.io/${userName}`;
-    const text= isFollowing ? 'Siguiendo': 'Seguir';
-    const btnclass= isFollowing ?
-    'tw-card-bfollow isFollowing': 
-    'tw-card-bfollow ';
-return (
-    <article className='tw-card'>
-    <header className='tw-card-header'>
-      <img
-      className='tw-card-img'
-      alt="avatar" 
-      src={imageSrc} 
-      />
-      <div className='tw-card-info'>
-        <strong>{children}</strong>
-        <span className='tw-card-at'>{formatUserName(userName)}</span>
-      </div>
-    </header>
-    <aside>
-      <button className={btnclass} onClick={handleClick}>
-        {text}$
-      </button>
-    </aside>
-  </article>
-)
+  return (
+    <article className='tw-followCard'>
+      <header className='tw-followCard-header'>
+        <img
+          className='tw-followCard-avatar'
+          alt='El avatar de midudev'
+          src={`https://unavatar.io/${userName}`}
+        />
+        <div className='tw-followCard-info'>
+          <strong>{children}</strong>
+          <span className='tw-followCard-infoUserName'>@{userName}</span>
+        </div>
+      </header>
+
+      <aside>
+        <button className={buttonClassName} onClick={handleClick}>
+          <span className='tw-followCard-text'>{text}</span>
+          <span className='tw-followCard-stopFollow'>Dejar de seguir</span>
+        </button>
+      </aside>
+    </article>
+  )
 }
-
-
-//export function TwitterFollowCard( { formatUserName, userName,name,isFollowing}) {
-  //antes se usaba name en lugar de children
